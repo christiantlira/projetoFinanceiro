@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace Financeiro.Forms
 {
-    public partial class FRM_Categorias : Form
+    public partial class FRM_CategoriasGastos : Form
     {
-        public FRM_Categorias()
+        public FRM_CategoriasGastos()
         {
             InitializeComponent();
         }
@@ -44,9 +44,10 @@ namespace Financeiro.Forms
             lista.Columns.Add("Categoria", 200);
             lista.Columns.Add("Essencial", 195);
             lista.Columns.Add("Cor", 300);
-            
 
-            DataTable tabelaCategoria = CTR_DadosSql.getCategorias();
+            string filtroCategorias = "WHERE GANHO = 'false'";
+            DataTable tabelaCategoria = CTR_DadosSql.getCategorias(filtroCategorias);
+
             if (tabelaCategoria.Rows.Count > 0)
             {
                 foreach (DataRow linhaCategoria in tabelaCategoria.Rows)
@@ -106,7 +107,7 @@ namespace Financeiro.Forms
 
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
-            CTR_DadosSql.novaCategoria(tbCategoria.Text, cbCor.Text, cbEssencial.Text.ToLower() == "essencial");
+            CTR_DadosSql.novaCategoria(tbCategoria.Text, cbCor.Text, cbEssencial.Text.ToLower() == "essencial", false);
             ConfiguraLista();
         }
 

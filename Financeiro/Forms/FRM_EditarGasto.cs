@@ -61,7 +61,7 @@ namespace Financeiro.Forms
                 string valor = tbValor.Text.Replace(',', '.');
                 DateTime data = DateTime.Parse(dtpData.Text);
 
-                CTR_DadosSql.editarGasto(filtro, categoria, descricao, valor, data);
+                CTR_DadosSql.editarOperacao(filtro, categoria, descricao, valor, data);
                 MessageBox.Show("Atualização concluída com sucesso!", "Conclusão", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }

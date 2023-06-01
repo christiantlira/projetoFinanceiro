@@ -1,6 +1,6 @@
 ﻿namespace Financeiro.Forms
 {
-    partial class FRM_Categorias
+    partial class FRM_CategoriasGastos
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FRM_Categorias));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FRM_CategoriasGastos));
             lblCategoria = new Label();
             tbCategoria = new TextBox();
             cbCor = new ComboBox();
