@@ -55,6 +55,7 @@ namespace Financeiro
                     categoria.Cor = cat.Rows[0]["COR"].ToString();
 
                     Gasto cust = new Gasto();
+                    cust.Id = int.Parse(gasto["PK"].ToString());
                     cust.Categoria = categoria;
                     cust.Descricao = gasto["DESCRICAO"].ToString();
                     cust.Valor = double.Parse(gasto["VALOR"].ToString());
@@ -65,6 +66,7 @@ namespace Financeiro
                     lvi.SubItems.Add(cust.Descricao);
                     lvi.SubItems.Add(cust.Valor.ToString("0.00"));
                     lvi.SubItems.Add(cust.Data.ToString("dd 'de' MMMM 'de' yyyy"));
+                    lvi.SubItems.Add(cust.Id.ToString());
 
                     FRM_Categorias.setBackColor(lvi, cust.Categoria.Cor);
 
@@ -76,8 +78,6 @@ namespace Financeiro
 
         private void ConfiguraCombo()
         {
-            cbCategorias.Items.Clear();
-
             DataTable categorias = CTR_DadosSql.getCategorias();
             if (categorias.Rows.Count > 0)
             {
@@ -145,6 +145,41 @@ namespace Financeiro
                 return 2;
             }
             return 0;
+        }
+
+        private void lista_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                cmsBotaoDireito.Show(Cursor.Position);
+            }
+        }
+
+        private void editarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int index = lista.SelectedIndices[0];
+
+            string categoria = lista.Items[index].SubItems[0].Text;
+            string descricao = lista.Items[index].SubItems[1].Text;
+            double valor = double.Parse(lista.Items[index].SubItems[2].Text);
+            string dt = DateTime.Parse(lista.Items[index].SubItems[3].Text).ToString("dd/MM/yyyy");
+            DateTime data = DateTime.Parse(dt);
+
+            string filtroCategoria = "WHERE CATEGORIA_NOME = '" + categoria + "'";
+            DataTable categoriaTable = CTR_DadosSql.getCategorias(filtroCategoria);
+            int pkCategoria = int.Parse(categoriaTable.Rows[0]["PK"].ToString());
+
+            string filtroGasto = "WHERE PK = " + lista.Items[index].SubItems[4].Text;
+            FRM_EditarGasto f = new FRM_EditarGasto(filtroGasto, pkCategoria, descricao, valor, data);
+
+            f.ShowDialog();
+            f.Dispose();
+        }
+
+        private void btnAtualizar_Click(object sender, EventArgs e)
+        {
+            ConfiguraLista();
+            ConfiguraCombo();
         }
     }
 }

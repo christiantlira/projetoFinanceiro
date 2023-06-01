@@ -41,8 +41,10 @@ namespace Financeiro.Forms
             // Display grid lines.
             lista.GridLines = true;
 
-            lista.Columns.Add("Categoria", 400);
+            lista.Columns.Add("Categoria", 200);
+            lista.Columns.Add("Essencial", 195);
             lista.Columns.Add("Cor", 300);
+            
 
             DataTable tabelaCategoria = CTR_DadosSql.getCategorias();
             if (tabelaCategoria.Rows.Count > 0)
@@ -51,11 +53,26 @@ namespace Financeiro.Forms
                 {
                     Categoria categoria = new Categoria();
 
+                    categoria.Id = int.Parse(linhaCategoria["PK"].ToString());
                     categoria.Name = linhaCategoria["CATEGORIA_NOME"].ToString();
+                    categoria.Essencial = bool.Parse(linhaCategoria["ESSENCIAL"].ToString());
                     categoria.Cor = linhaCategoria["COR"].ToString();
 
+                    string essencial = "";
+
+                    if (categoria.Essencial)
+                    {
+                        essencial = "Sim";
+                    }
+                    else
+                    {
+                        essencial = "Não";
+                    }
+
                     ListViewItem lvi = new ListViewItem(categoria.Name);
+                    lvi.SubItems.Add(essencial);
                     lvi.SubItems.Add(categoria.Cor);
+                    lvi.SubItems.Add(categoria.Id.ToString());
 
                     setBackColor(lvi, categoria.Cor);
 
@@ -66,6 +83,7 @@ namespace Financeiro.Forms
 
         private void ConfiguraCombo()
         {
+            //COMBO CORES
             cbCor.Items.Clear();
 
             cbCor.Items.Add("Azul");
@@ -78,11 +96,17 @@ namespace Financeiro.Forms
             cbCor.Items.Add("Branco");
 
             cbCor.Sorted = true;
+
+            //COMBO ESSENCIAL
+            cbEssencial.Items.Clear();
+
+            cbEssencial.Items.Add("Não Essencial");
+            cbEssencial.Items.Add("Essencial");
         }
 
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
-            CTR_DadosSql.novaCategoria(tbCategoria.Text, cbCor.Text);
+            CTR_DadosSql.novaCategoria(tbCategoria.Text, cbCor.Text, cbEssencial.Text.ToLower() == "essencial");
             ConfiguraLista();
         }
 
@@ -125,6 +149,32 @@ namespace Financeiro.Forms
             }
 
             return item;
+        }
+
+        private void lista_MouseClick_1(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                cmsBotaoDireito.Show(Cursor.Position);
+            }
+        }
+
+        private void editarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //PEGAR INDEX DA LINHA SELECIONADA
+            int index = lista.SelectedIndices[0];
+
+            string categoria = lista.Items[index].SubItems[0].Text;
+            bool essencial = lista.Items[index].SubItems[1].Text.ToLower() == "sim";
+            string cor = lista.Items[index].SubItems[2].Text;
+            string id = lista.Items[index].SubItems[3].Text;
+
+            string filtro = "WHERE PK = '" + id + "';";
+
+            FRM_EditarCategoria f = new FRM_EditarCategoria(filtro, categoria, essencial, cor);
+
+            f.ShowDialog();
+            f.Dispose();
         }
     }
 }

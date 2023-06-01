@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             btnInformacoes = new Button();
             txtBoxDescricao = new TextBox();
             btnCategorias = new Button();
@@ -40,6 +42,11 @@
             label2 = new Label();
             lista = new ListView();
             btnAdicionar = new Button();
+            cmsBotaoDireito = new ContextMenuStrip(components);
+            editarToolStripMenuItem = new ToolStripMenuItem();
+            excluirToolStripMenuItem = new ToolStripMenuItem();
+            btnAtualizar = new Button();
+            cmsBotaoDireito.SuspendLayout();
             SuspendLayout();
             // 
             // btnInformacoes
@@ -136,6 +143,7 @@
             lista.TabIndex = 10;
             lista.TabStop = false;
             lista.UseCompatibleStateImageBehavior = false;
+            lista.MouseClick += lista_MouseClick;
             // 
             // btnAdicionar
             // 
@@ -147,11 +155,44 @@
             btnAdicionar.UseVisualStyleBackColor = true;
             btnAdicionar.Click += btnAdicionar_Click;
             // 
+            // cmsBotaoDireito
+            // 
+            cmsBotaoDireito.Items.AddRange(new ToolStripItem[] { editarToolStripMenuItem, excluirToolStripMenuItem });
+            cmsBotaoDireito.Name = "contextMenuStrip1";
+            cmsBotaoDireito.Size = new Size(110, 48);
+            // 
+            // editarToolStripMenuItem
+            // 
+            editarToolStripMenuItem.Image = Properties.Resources.Editar;
+            editarToolStripMenuItem.Name = "editarToolStripMenuItem";
+            editarToolStripMenuItem.Size = new Size(109, 22);
+            editarToolStripMenuItem.Text = "Editar";
+            editarToolStripMenuItem.Click += editarToolStripMenuItem_Click;
+            // 
+            // excluirToolStripMenuItem
+            // 
+            excluirToolStripMenuItem.Image = Properties.Resources.Deletar;
+            excluirToolStripMenuItem.Name = "excluirToolStripMenuItem";
+            excluirToolStripMenuItem.Size = new Size(109, 22);
+            excluirToolStripMenuItem.Text = "Excluir";
+            // 
+            // btnAtualizar
+            // 
+            btnAtualizar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnAtualizar.Location = new Point(11, 444);
+            btnAtualizar.Name = "btnAtualizar";
+            btnAtualizar.Size = new Size(67, 23);
+            btnAtualizar.TabIndex = 11;
+            btnAtualizar.Text = "Atualizar";
+            btnAtualizar.UseVisualStyleBackColor = true;
+            btnAtualizar.Click += btnAtualizar_Click;
+            // 
             // Principal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(832, 450);
+            ClientSize = new Size(832, 476);
+            Controls.Add(btnAtualizar);
             Controls.Add(btnAdicionar);
             Controls.Add(lista);
             Controls.Add(label2);
@@ -164,10 +205,12 @@
             Controls.Add(btnCategorias);
             Controls.Add(txtBoxDescricao);
             Controls.Add(btnInformacoes);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Principal";
             Text = "Menu principal";
             TopMost = true;
             Load += Principal_Load;
+            cmsBotaoDireito.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -186,5 +229,9 @@
         private Label label2;
         private ListView lista;
         private Button btnAdicionar;
+        private ContextMenuStrip cmsBotaoDireito;
+        private ToolStripMenuItem editarToolStripMenuItem;
+        private ToolStripMenuItem excluirToolStripMenuItem;
+        private Button btnAtualizar;
     }
 }
