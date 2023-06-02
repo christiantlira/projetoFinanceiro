@@ -17,6 +17,8 @@ namespace Financeiro
         private void Principal_Load(object sender, EventArgs e)
         {
             this.TopMost = false;
+            this.MaximizeBox = false;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
         private void btnGastos_Click(object sender, EventArgs e)
@@ -36,6 +38,13 @@ namespace Financeiro
         private void btnGeral_Click(object sender, EventArgs e)
         {
             FRM_Geral f = new FRM_Geral();
+            f.ShowDialog();
+            f.Dispose();
+        }
+
+        private void btnInformacoes_Click(object sender, EventArgs e)
+        {
+            FRM_Informacoes f = new FRM_Informacoes();
             f.ShowDialog();
             f.Dispose();
         }

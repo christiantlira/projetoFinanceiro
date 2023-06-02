@@ -1,6 +1,6 @@
 ﻿namespace Financeiro.Forms
 {
-    partial class FRM_CategoriasGastos
+    partial class FRM_GastosCategorias
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FRM_CategoriasGastos));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FRM_GastosCategorias));
             lblCategoria = new Label();
             tbCategoria = new TextBox();
             cbCor = new ComboBox();
@@ -45,6 +45,7 @@
             // 
             // lblCategoria
             // 
+            lblCategoria.Anchor = AnchorStyles.Top;
             lblCategoria.AutoSize = true;
             lblCategoria.Location = new Point(12, 16);
             lblCategoria.Name = "lblCategoria";
@@ -54,6 +55,7 @@
             // 
             // tbCategoria
             // 
+            tbCategoria.Anchor = AnchorStyles.Top;
             tbCategoria.Location = new Point(79, 13);
             tbCategoria.Name = "tbCategoria";
             tbCategoria.Size = new Size(161, 23);
@@ -61,6 +63,7 @@
             // 
             // cbCor
             // 
+            cbCor.Anchor = AnchorStyles.Top;
             cbCor.FormattingEnabled = true;
             cbCor.Location = new Point(500, 13);
             cbCor.Name = "cbCor";
@@ -69,6 +72,7 @@
             // 
             // lblCor
             // 
+            lblCor.Anchor = AnchorStyles.Top;
             lblCor.AutoSize = true;
             lblCor.Location = new Point(465, 16);
             lblCor.Name = "lblCor";
@@ -78,6 +82,7 @@
             // 
             // btnCadastrar
             // 
+            btnCadastrar.Anchor = AnchorStyles.Top;
             btnCadastrar.Location = new Point(637, 13);
             btnCadastrar.Name = "btnCadastrar";
             btnCadastrar.Size = new Size(75, 23);
@@ -88,6 +93,7 @@
             // 
             // lista
             // 
+            lista.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lista.Location = new Point(12, 42);
             lista.Name = "lista";
             lista.Size = new Size(699, 243);
@@ -112,6 +118,7 @@
             // 
             // cbEssencial
             // 
+            cbEssencial.Anchor = AnchorStyles.Top;
             cbEssencial.FormattingEnabled = true;
             cbEssencial.Location = new Point(338, 13);
             cbEssencial.Name = "cbEssencial";
@@ -120,6 +127,7 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
             label1.Location = new Point(246, 17);
             label1.Name = "label1";
@@ -127,7 +135,7 @@
             label1.TabIndex = 7;
             label1.Text = "Essencialidade:";
             // 
-            // FRM_Categorias
+            // FRM_CategoriasGastos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -142,7 +150,7 @@
             Controls.Add(lblCategoria);
             ForeColor = SystemColors.ControlText;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Name = "FRM_Categorias";
+            Name = "FRM_CategoriasGastos";
             Text = "Categorias";
             Load += FRM_Categorias_Load;
             cmsBotaoDireito.ResumeLayout(false);

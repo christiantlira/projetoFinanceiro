@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Financeiro.Forms
 {
-    public partial class FRM_EditarGasto : Form
+    public partial class FRM_GastoEditar : Form
     {
         string filtro;
         int fkCategoria;
@@ -19,7 +19,7 @@ namespace Financeiro.Forms
         double valor;
         DateTime data;
 
-        public FRM_EditarGasto(string filtro, int fkCategoria, string descricao, double valor, DateTime data)
+        public FRM_GastoEditar(string filtro, int fkCategoria, string descricao, double valor, DateTime data)
         {
             this.filtro = filtro;
             this.fkCategoria = fkCategoria;
@@ -31,6 +31,10 @@ namespace Financeiro.Forms
 
         private void FRM_EditarGasto_Load(object sender, EventArgs e)
         {
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
+
             ConfiguraCombo();
             tbDescricao.Text = descricao;
             tbValor.Text = valor.ToString();
@@ -41,10 +45,24 @@ namespace Financeiro.Forms
         {
             cbCategorias.Items.Clear();
 
-            DataTable categorias = CTR_DadosSql.getCategorias();
+            string filtroCat = "WHERE PK = '" + fkCategoria + "'";
+            DataTable categoria = CTR_DadosSql.getCategorias(filtroCat);
+
+            bool isGanho = bool.Parse(categoria.Rows[0]["GANHO"].ToString());
+
+            filtroCat = "";
+            if (isGanho)
+            {
+                filtroCat = "WHERE GANHO = 'true'";
+            } else
+            {
+                filtroCat = "WHERE GANHO = 'false'";
+            }
+
+            DataTable categorias = CTR_DadosSql.getCategorias(filtroCat);
             if (categorias.Rows.Count > 0)
             {
-                cbCategorias.DataSource = CTR_DadosSql.getCategorias();
+                cbCategorias.DataSource = categorias;
                 cbCategorias.DisplayMember = "CATEGORIA_NOME";
                 cbCategorias.ValueMember = "PK";
 

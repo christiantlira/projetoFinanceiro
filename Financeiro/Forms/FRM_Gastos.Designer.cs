@@ -53,6 +53,7 @@
             // 
             // lblValorTotal
             // 
+            lblValorTotal.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             lblValorTotal.AutoSize = true;
             lblValorTotal.Location = new Point(539, 408);
             lblValorTotal.Name = "lblValorTotal";
@@ -62,6 +63,7 @@
             // 
             // lblNumeroItens
             // 
+            lblNumeroItens.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             lblNumeroItens.AutoSize = true;
             lblNumeroItens.Location = new Point(733, 408);
             lblNumeroItens.Name = "lblNumeroItens";
@@ -71,6 +73,7 @@
             // 
             // btnAtualizar
             // 
+            btnAtualizar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnAtualizar.ImageAlign = ContentAlignment.MiddleLeft;
             btnAtualizar.Location = new Point(12, 400);
             btnAtualizar.Name = "btnAtualizar";
@@ -82,6 +85,7 @@
             // 
             // btnAdicionar
             // 
+            btnAdicionar.Anchor = AnchorStyles.Top;
             btnAdicionar.Location = new Point(754, 35);
             btnAdicionar.Name = "btnAdicionar";
             btnAdicionar.Size = new Size(67, 23);
@@ -92,6 +96,7 @@
             // 
             // lista
             // 
+            lista.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lista.Location = new Point(13, 64);
             lista.Name = "lista";
             lista.Size = new Size(808, 330);
@@ -102,6 +107,7 @@
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top;
             label2.AutoSize = true;
             label2.Location = new Point(583, 7);
             label2.Name = "label2";
@@ -111,6 +117,7 @@
             // 
             // dtpData
             // 
+            dtpData.Anchor = AnchorStyles.Top;
             dtpData.Location = new Point(623, 4);
             dtpData.Name = "dtpData";
             dtpData.Size = new Size(200, 23);
@@ -118,6 +125,7 @@
             // 
             // txtBoxValor
             // 
+            txtBoxValor.Anchor = AnchorStyles.Top;
             txtBoxValor.Location = new Point(497, 4);
             txtBoxValor.Name = "txtBoxValor";
             txtBoxValor.Size = new Size(80, 23);
@@ -125,6 +133,7 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
             label1.Location = new Point(455, 7);
             label1.Name = "label1";
@@ -134,6 +143,7 @@
             // 
             // lblDescricao
             // 
+            lblDescricao.Anchor = AnchorStyles.Top;
             lblDescricao.AutoSize = true;
             lblDescricao.Location = new Point(212, 7);
             lblDescricao.Name = "lblDescricao";
@@ -143,6 +153,7 @@
             // 
             // lblCategorias
             // 
+            lblCategorias.Anchor = AnchorStyles.Top;
             lblCategorias.AutoSize = true;
             lblCategorias.Location = new Point(13, 7);
             lblCategorias.Name = "lblCategorias";
@@ -152,6 +163,7 @@
             // 
             // cbCategorias
             // 
+            cbCategorias.Anchor = AnchorStyles.Top;
             cbCategorias.FormattingEnabled = true;
             cbCategorias.Location = new Point(85, 4);
             cbCategorias.Name = "cbCategorias";
@@ -160,6 +172,7 @@
             // 
             // txtBoxDescricao
             // 
+            txtBoxDescricao.Anchor = AnchorStyles.Top;
             txtBoxDescricao.Location = new Point(279, 4);
             txtBoxDescricao.Name = "txtBoxDescricao";
             txtBoxDescricao.Size = new Size(170, 23);
@@ -177,6 +190,7 @@
             editarToolStripMenuItem.Name = "editarToolStripMenuItem";
             editarToolStripMenuItem.Size = new Size(109, 22);
             editarToolStripMenuItem.Text = "Editar";
+            editarToolStripMenuItem.Click += editarToolStripMenuItem_Click_1;
             // 
             // excluirToolStripMenuItem
             // 
@@ -188,6 +202,7 @@
             // 
             // lblValor
             // 
+            lblValor.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             lblValor.AutoSize = true;
             lblValor.Location = new Point(608, 408);
             lblValor.Name = "lblValor";
@@ -197,6 +212,7 @@
             // 
             // lblItens
             // 
+            lblItens.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             lblItens.AutoSize = true;
             lblItens.Location = new Point(774, 408);
             lblItens.Name = "lblItens";
@@ -206,6 +222,7 @@
             // 
             // btnCategorias
             // 
+            btnCategorias.Anchor = AnchorStyles.Top;
             btnCategorias.BackColor = Color.White;
             btnCategorias.Location = new Point(12, 35);
             btnCategorias.Name = "btnCategorias";

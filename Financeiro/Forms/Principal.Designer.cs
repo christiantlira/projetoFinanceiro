@@ -37,19 +37,22 @@
             // 
             // btnInformacoes
             // 
+            btnInformacoes.Anchor = AnchorStyles.None;
             btnInformacoes.BackColor = Color.FromArgb(80, 168, 37);
-            btnInformacoes.Location = new Point(303, 34);
+            btnInformacoes.Location = new Point(304, 18);
             btnInformacoes.Name = "btnInformacoes";
-            btnInformacoes.Size = new Size(106, 43);
+            btnInformacoes.Size = new Size(90, 88);
             btnInformacoes.TabIndex = 0;
             btnInformacoes.TabStop = false;
-            btnInformacoes.Text = "REGISTRAR INFORMAÇÕES";
+            btnInformacoes.Text = "INFOS.";
             btnInformacoes.UseVisualStyleBackColor = false;
+            btnInformacoes.Click += btnInformacoes_Click;
             // 
             // btnGastos
             // 
+            btnGastos.Anchor = AnchorStyles.None;
             btnGastos.BackColor = Color.FromArgb(80, 168, 37);
-            btnGastos.Location = new Point(12, 12);
+            btnGastos.Location = new Point(13, 18);
             btnGastos.Name = "btnGastos";
             btnGastos.Size = new Size(91, 89);
             btnGastos.TabIndex = 3;
@@ -60,8 +63,9 @@
             // 
             // btnGanhos
             // 
+            btnGanhos.Anchor = AnchorStyles.None;
             btnGanhos.BackColor = Color.FromArgb(80, 168, 37);
-            btnGanhos.Location = new Point(109, 12);
+            btnGanhos.Location = new Point(110, 18);
             btnGanhos.Name = "btnGanhos";
             btnGanhos.Size = new Size(91, 89);
             btnGanhos.TabIndex = 4;
@@ -72,8 +76,9 @@
             // 
             // btnGeral
             // 
+            btnGeral.Anchor = AnchorStyles.None;
             btnGeral.BackColor = Color.FromArgb(80, 168, 37);
-            btnGeral.Location = new Point(206, 11);
+            btnGeral.Location = new Point(207, 17);
             btnGeral.Name = "btnGeral";
             btnGeral.Size = new Size(91, 89);
             btnGeral.TabIndex = 5;
@@ -87,7 +92,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 155, 207);
-            ClientSize = new Size(416, 112);
+            ClientSize = new Size(408, 124);
             Controls.Add(btnGeral);
             Controls.Add(btnGanhos);
             Controls.Add(btnGastos);

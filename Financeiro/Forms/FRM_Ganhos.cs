@@ -74,7 +74,7 @@ namespace Financeiro.Forms
                     lvi.SubItems.Add(ganho.Data.ToString("dd 'de' MMMM 'de' yyyy"));
                     lvi.SubItems.Add(ganho.Id.ToString());
 
-                    FRM_CategoriasGastos.setBackColor(lvi, ganho.Categoria.Cor);
+                    FRM_GastosCategorias.setBackColor(lvi, ganho.Categoria.Cor);
 
                     lista.Items.Add(lvi);
 
@@ -166,7 +166,7 @@ namespace Financeiro.Forms
 
             string categoria = lista.Items[index].SubItems[0].Text;
             string descricao = lista.Items[index].SubItems[1].Text;
-            double valor = double.Parse(lista.Items[index].SubItems[2].Text);
+            double valor = double.Parse(lista.Items[index].SubItems[2].Text.Replace("R$", ""));
             string dt = DateTime.Parse(lista.Items[index].SubItems[3].Text).ToString("dd/MM/yyyy");
             DateTime data = DateTime.Parse(dt);
 
@@ -175,7 +175,7 @@ namespace Financeiro.Forms
             int pkCategoria = int.Parse(categoriaTable.Rows[0]["PK"].ToString());
 
             string filtroGasto = "WHERE PK = " + lista.Items[index].SubItems[4].Text;
-            FRM_EditarGasto f = new FRM_EditarGasto(filtroGasto, pkCategoria, descricao, valor, data);
+            FRM_GastoEditar f = new FRM_GastoEditar(filtroGasto, pkCategoria, descricao, valor, data);
 
             f.ShowDialog();
             f.Dispose();
@@ -189,7 +189,7 @@ namespace Financeiro.Forms
 
         private void btnCategorias_Click(object sender, EventArgs e)
         {
-            FRM_CategoriasGanhos f = new FRM_CategoriasGanhos();
+            FRM_GanhosCategorias f = new FRM_GanhosCategorias();
 
             f.ShowDialog();
             f.Dispose();

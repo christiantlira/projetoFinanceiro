@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace Financeiro.Forms
 {
-    public partial class FRM_CategoriasGastos : Form
+    public partial class FRM_GastosCategorias : Form
     {
-        public FRM_CategoriasGastos()
+        public FRM_GastosCategorias()
         {
             InitializeComponent();
         }
@@ -87,14 +87,14 @@ namespace Financeiro.Forms
             //COMBO CORES
             cbCor.Items.Clear();
 
-            cbCor.Items.Add("Azul");
-            cbCor.Items.Add("Cinza");
-            cbCor.Items.Add("Vermelho");
-            cbCor.Items.Add("Amarelo");
-            cbCor.Items.Add("Laranja");
-            cbCor.Items.Add("Roxo");
-            cbCor.Items.Add("Verde");
-            cbCor.Items.Add("Branco");
+            cbCor.Items.Add("Swirl");
+            cbCor.Items.Add("Natural Gray");
+            cbCor.Items.Add("Star Dust");
+            cbCor.Items.Add("Rolling Stone");
+            cbCor.Items.Add("Nevada");
+            cbCor.Items.Add("Black Coral");
+            cbCor.Items.Add("Tuatara");
+            cbCor.Items.Add("Gray");
 
             cbCor.Sorted = true;
 
@@ -113,39 +113,47 @@ namespace Financeiro.Forms
 
         public static ListViewItem setBackColor(ListViewItem item, string cor)
         {
-            Color azul = Color.Azure;
-            Color cinza = Color.Gainsboro;
-            Color vermelho = Color.Tomato;
-            Color amarelo = Color.LightGoldenrodYellow;
-            Color laranja = Color.LightSalmon;
-            Color roxo = Color.MediumOrchid;
-            Color verde = Color.LightGreen;
+            Color azul = ColorTranslator.FromHtml("#D0CDC9");
+            Color cinza = ColorTranslator.FromHtml("#918981");
+            Color vermelho = ColorTranslator.FromHtml("#9FA4A3");
+            Color amarelo = ColorTranslator.FromHtml("#717B7F");
+            Color laranja = ColorTranslator.FromHtml("#667579");
+            Color roxo = ColorTranslator.FromHtml("#4C5B6C");
+            Color verde = ColorTranslator.FromHtml("#3A4E4F");
 
             switch (cor.ToLower())
             {
                 case "azul":
                     item.BackColor = azul;
+                    item.ForeColor = Color.Black;
                     break;
                 case "amarelo":
                     item.BackColor = amarelo;
+                    item.ForeColor = Color.Black;
                     break;
                 case "cinza":
                     item.BackColor = cinza;
+                    item.ForeColor = Color.Black;
                     break;
                 case "vermelho":
                     item.BackColor = vermelho;
+                    item.ForeColor = Color.White;
                     break;
                 case "laranja":
                     item.BackColor = laranja;
+                    item.ForeColor = Color.White;
                     break;
                 case "roxo":
                     item.BackColor = roxo;
+                    item.ForeColor = Color.White;
                     break;
                 case "verde":
                     item.BackColor = verde;
+                    item.ForeColor = Color.White;
                     break;
                 default:
                     item.BackColor = Color.White;
+                    item.ForeColor = Color.Black;
                     break;
             }
 
@@ -172,7 +180,7 @@ namespace Financeiro.Forms
 
             string filtro = "WHERE PK = '" + id + "';";
 
-            FRM_EditarCategoria f = new FRM_EditarCategoria(filtro, categoria, essencial, cor);
+            FRM_CategoriaEditar f = new FRM_CategoriaEditar(filtro, categoria, essencial, cor);
 
             f.ShowDialog();
             f.Dispose();

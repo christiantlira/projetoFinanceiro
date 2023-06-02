@@ -75,7 +75,7 @@ namespace Financeiro.Forms
                     lvi.SubItems.Add(cust.Data.ToString("dd 'de' MMMM 'de' yyyy"));
                     lvi.SubItems.Add(cust.Id.ToString());
 
-                    FRM_CategoriasGastos.setBackColor(lvi, cust.Categoria.Cor);
+                    FRM_GastosCategorias.setBackColor(lvi, cust.Categoria.Cor);
 
                     lista.Items.Add(lvi);
 
@@ -94,7 +94,7 @@ namespace Financeiro.Forms
             DataTable categorias = CTR_DadosSql.getCategorias(filtroCategorias);
             if (categorias.Rows.Count > 0)
             {
-                
+
                 cbCategorias.DataSource = categorias;
                 cbCategorias.DisplayMember = "CATEGORIA_NOME";
                 cbCategorias.ValueMember = "PK";
@@ -159,26 +159,6 @@ namespace Financeiro.Forms
                 cmsBotaoDireito.Show(Cursor.Position);
             }
         }
-        private void editarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            int index = lista.SelectedIndices[0];
-
-            string categoria = lista.Items[index].SubItems[0].Text;
-            string descricao = lista.Items[index].SubItems[1].Text;
-            double valor = double.Parse(lista.Items[index].SubItems[2].Text);
-            string dt = DateTime.Parse(lista.Items[index].SubItems[3].Text).ToString("dd/MM/yyyy");
-            DateTime data = DateTime.Parse(dt);
-
-            string filtroCategoria = "WHERE CATEGORIA_NOME = '" + categoria + "'";
-            DataTable categoriaTable = CTR_DadosSql.getCategorias(filtroCategoria);
-            int pkCategoria = int.Parse(categoriaTable.Rows[0]["PK"].ToString());
-
-            string filtroGasto = "WHERE PK = " + lista.Items[index].SubItems[4].Text;
-            FRM_EditarGasto f = new FRM_EditarGasto(filtroGasto, pkCategoria, descricao, valor, data);
-
-            f.ShowDialog();
-            f.Dispose();
-        }
 
         private void btnAtualizar_Click(object sender, EventArgs e)
         {
@@ -188,7 +168,7 @@ namespace Financeiro.Forms
 
         private void btnCategorias_Click(object sender, EventArgs e)
         {
-            FRM_CategoriasGastos f = new FRM_CategoriasGastos();
+            FRM_GastosCategorias f = new FRM_GastosCategorias();
             f.ShowDialog();
             f.Dispose();
         }
@@ -206,6 +186,27 @@ namespace Financeiro.Forms
                 MessageBox.Show("Gasto excluído com sucesso!", "Concluído", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnAtualizar_Click(sender, e);
             }
+        }
+
+        private void editarToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            int index = lista.SelectedIndices[0];
+
+            string categoria = lista.Items[index].SubItems[0].Text;
+            string descricao = lista.Items[index].SubItems[1].Text;
+            double valor = double.Parse(lista.Items[index].SubItems[2].Text.Replace("R$", ""));
+            string dt = DateTime.Parse(lista.Items[index].SubItems[3].Text).ToString("dd/MM/yyyy");
+            DateTime data = DateTime.Parse(dt);
+
+            string filtroCategoria = "WHERE CATEGORIA_NOME = '" + categoria + "'";
+            DataTable categoriaTable = CTR_DadosSql.getCategorias(filtroCategoria);
+            int pkCategoria = int.Parse(categoriaTable.Rows[0]["PK"].ToString());
+
+            string filtroGasto = "WHERE PK = " + lista.Items[index].SubItems[4].Text;
+            FRM_GastoEditar f = new FRM_GastoEditar(filtroGasto, pkCategoria, descricao, valor, data);
+
+            f.ShowDialog();
+            f.Dispose();
         }
     }
 }

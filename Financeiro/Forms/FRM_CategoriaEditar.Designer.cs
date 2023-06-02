@@ -1,6 +1,6 @@
 ﻿namespace Financeiro.Forms
 {
-    partial class FRM_EditarCategoria
+    partial class FRM_CategoriaEditar
     {
         /// <summary>
         /// Required designer variable.
@@ -39,6 +39,7 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Location = new Point(246, 10);
             label1.Name = "label1";
@@ -48,6 +49,7 @@
             // 
             // cbEssencial
             // 
+            cbEssencial.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             cbEssencial.FormattingEnabled = true;
             cbEssencial.Location = new Point(338, 6);
             cbEssencial.Name = "cbEssencial";
@@ -56,6 +58,7 @@
             // 
             // btnAtualizar
             // 
+            btnAtualizar.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             btnAtualizar.Location = new Point(635, 6);
             btnAtualizar.Name = "btnAtualizar";
             btnAtualizar.Size = new Size(75, 23);
@@ -66,6 +69,7 @@
             // 
             // lblCor
             // 
+            lblCor.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblCor.AutoSize = true;
             lblCor.Location = new Point(465, 9);
             lblCor.Name = "lblCor";
@@ -75,6 +79,7 @@
             // 
             // cbCor
             // 
+            cbCor.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             cbCor.FormattingEnabled = true;
             cbCor.Location = new Point(500, 6);
             cbCor.Name = "cbCor";
@@ -83,6 +88,7 @@
             // 
             // tbCategoria
             // 
+            tbCategoria.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tbCategoria.Location = new Point(79, 6);
             tbCategoria.Name = "tbCategoria";
             tbCategoria.Size = new Size(161, 23);
@@ -90,6 +96,7 @@
             // 
             // lblCategoria
             // 
+            lblCategoria.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblCategoria.AutoSize = true;
             lblCategoria.Location = new Point(12, 9);
             lblCategoria.Name = "lblCategoria";

@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace Financeiro.Forms
 {
-    public partial class FRM_CategoriasGanhos : Form
+    public partial class FRM_GanhosCategorias : Form
     {
-        public FRM_CategoriasGanhos()
+        public FRM_GanhosCategorias()
         {
             InitializeComponent();
         }
@@ -75,8 +75,8 @@ namespace Financeiro.Forms
                     lvi.SubItems.Add(categoria.Cor);
                     lvi.SubItems.Add(categoria.Id.ToString());
 
-                    FRM_CategoriasGastos.setBackColor(lvi, categoria.Cor);
-                    
+                    FRM_GastosCategorias.setBackColor(lvi, categoria.Cor);
+
                     lista.Items.Add(lvi);
                 }
             }
@@ -124,7 +124,7 @@ namespace Financeiro.Forms
 
             string filtro = "WHERE PK = '" + id + "';";
 
-            FRM_EditarCategoria f = new FRM_EditarCategoria(filtro, categoria, salario, cor);
+            FRM_CategoriaEditar f = new FRM_CategoriaEditar(filtro, categoria, salario, cor);
 
             f.ShowDialog();
             f.Dispose();

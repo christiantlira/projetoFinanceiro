@@ -53,6 +53,7 @@
             // 
             // btnCategorias
             // 
+            btnCategorias.Anchor = AnchorStyles.Top;
             btnCategorias.BackColor = Color.White;
             btnCategorias.Location = new Point(11, 40);
             btnCategorias.Name = "btnCategorias";
@@ -65,6 +66,7 @@
             // 
             // lblItens
             // 
+            lblItens.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             lblItens.AutoSize = true;
             lblItens.Location = new Point(773, 413);
             lblItens.Name = "lblItens";
@@ -74,6 +76,7 @@
             // 
             // lblValor
             // 
+            lblValor.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             lblValor.AutoSize = true;
             lblValor.Location = new Point(607, 413);
             lblValor.Name = "lblValor";
@@ -83,6 +86,7 @@
             // 
             // lblValorTotal
             // 
+            lblValorTotal.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             lblValorTotal.AutoSize = true;
             lblValorTotal.Location = new Point(538, 413);
             lblValorTotal.Name = "lblValorTotal";
@@ -92,6 +96,7 @@
             // 
             // lblNumeroItens
             // 
+            lblNumeroItens.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             lblNumeroItens.AutoSize = true;
             lblNumeroItens.Location = new Point(732, 413);
             lblNumeroItens.Name = "lblNumeroItens";
@@ -101,6 +106,7 @@
             // 
             // btnAtualizar
             // 
+            btnAtualizar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnAtualizar.ImageAlign = ContentAlignment.MiddleLeft;
             btnAtualizar.Location = new Point(11, 405);
             btnAtualizar.Name = "btnAtualizar";
@@ -112,6 +118,7 @@
             // 
             // btnAdicionar
             // 
+            btnAdicionar.Anchor = AnchorStyles.Top;
             btnAdicionar.Location = new Point(753, 40);
             btnAdicionar.Name = "btnAdicionar";
             btnAdicionar.Size = new Size(67, 23);
@@ -122,6 +129,7 @@
             // 
             // lista
             // 
+            lista.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lista.Location = new Point(12, 69);
             lista.Name = "lista";
             lista.Size = new Size(808, 330);
@@ -132,6 +140,7 @@
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top;
             label2.AutoSize = true;
             label2.Location = new Point(582, 12);
             label2.Name = "label2";
@@ -141,6 +150,7 @@
             // 
             // dtpData
             // 
+            dtpData.Anchor = AnchorStyles.Top;
             dtpData.Location = new Point(622, 9);
             dtpData.Name = "dtpData";
             dtpData.Size = new Size(200, 23);
@@ -148,6 +158,7 @@
             // 
             // txtBoxValor
             // 
+            txtBoxValor.Anchor = AnchorStyles.Top;
             txtBoxValor.Location = new Point(496, 9);
             txtBoxValor.Name = "txtBoxValor";
             txtBoxValor.Size = new Size(80, 23);
@@ -155,6 +166,7 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
             label1.Location = new Point(454, 12);
             label1.Name = "label1";
@@ -164,6 +176,7 @@
             // 
             // lblDescricao
             // 
+            lblDescricao.Anchor = AnchorStyles.Top;
             lblDescricao.AutoSize = true;
             lblDescricao.Location = new Point(211, 12);
             lblDescricao.Name = "lblDescricao";
@@ -173,6 +186,7 @@
             // 
             // lblCategorias
             // 
+            lblCategorias.Anchor = AnchorStyles.Top;
             lblCategorias.AutoSize = true;
             lblCategorias.Location = new Point(12, 12);
             lblCategorias.Name = "lblCategorias";
@@ -182,6 +196,7 @@
             // 
             // cbCategorias
             // 
+            cbCategorias.Anchor = AnchorStyles.Top;
             cbCategorias.FormattingEnabled = true;
             cbCategorias.Location = new Point(84, 9);
             cbCategorias.Name = "cbCategorias";
@@ -190,6 +205,7 @@
             // 
             // txtBoxDescricao
             // 
+            txtBoxDescricao.Anchor = AnchorStyles.Top;
             txtBoxDescricao.Location = new Point(278, 9);
             txtBoxDescricao.Name = "txtBoxDescricao";
             txtBoxDescricao.Size = new Size(170, 23);
@@ -199,7 +215,7 @@
             // 
             cmsBotaoDireito.Items.AddRange(new ToolStripItem[] { editarToolStripMenuItem, excluirToolStripMenuItem });
             cmsBotaoDireito.Name = "contextMenuStrip1";
-            cmsBotaoDireito.Size = new Size(181, 70);
+            cmsBotaoDireito.Size = new Size(110, 48);
             // 
             // editarToolStripMenuItem
             // 
@@ -213,7 +229,7 @@
             // 
             excluirToolStripMenuItem.Image = Properties.Resources.Deletar;
             excluirToolStripMenuItem.Name = "excluirToolStripMenuItem";
-            excluirToolStripMenuItem.Size = new Size(180, 22);
+            excluirToolStripMenuItem.Size = new Size(109, 22);
             excluirToolStripMenuItem.Text = "Excluir";
             excluirToolStripMenuItem.Click += excluirToolStripMenuItem_Click;
             // 

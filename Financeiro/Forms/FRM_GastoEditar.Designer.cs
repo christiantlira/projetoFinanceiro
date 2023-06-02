@@ -1,6 +1,6 @@
 ﻿namespace Financeiro.Forms
 {
-    partial class FRM_EditarGasto
+    partial class FRM_GastoEditar
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FRM_EditarGasto));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FRM_GastoEditar));
             btnAtualizar = new Button();
             label2 = new Label();
             dtpData = new DateTimePicker();

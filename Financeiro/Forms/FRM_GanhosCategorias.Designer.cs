@@ -1,6 +1,6 @@
 ﻿namespace Financeiro.Forms
 {
-    partial class FRM_CategoriasGanhos
+    partial class FRM_GanhosCategorias
     {
         /// <summary>
         /// Required designer variable.
@@ -43,6 +43,7 @@
             // 
             // lista
             // 
+            lista.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lista.Location = new Point(11, 41);
             lista.Name = "lista";
             lista.Size = new Size(699, 243);
@@ -53,6 +54,7 @@
             // 
             // btnCadastrar
             // 
+            btnCadastrar.Anchor = AnchorStyles.Top;
             btnCadastrar.Location = new Point(636, 12);
             btnCadastrar.Name = "btnCadastrar";
             btnCadastrar.Size = new Size(75, 23);
@@ -63,6 +65,7 @@
             // 
             // lblCor
             // 
+            lblCor.Anchor = AnchorStyles.Top;
             lblCor.AutoSize = true;
             lblCor.Location = new Point(464, 15);
             lblCor.Name = "lblCor";
@@ -72,6 +75,7 @@
             // 
             // cbCor
             // 
+            cbCor.Anchor = AnchorStyles.Top;
             cbCor.FormattingEnabled = true;
             cbCor.Location = new Point(499, 12);
             cbCor.Name = "cbCor";
@@ -80,6 +84,7 @@
             // 
             // tbCategoria
             // 
+            tbCategoria.Anchor = AnchorStyles.Top;
             tbCategoria.Location = new Point(78, 12);
             tbCategoria.Name = "tbCategoria";
             tbCategoria.Size = new Size(313, 23);
@@ -87,6 +92,7 @@
             // 
             // lblCategoria
             // 
+            lblCategoria.Anchor = AnchorStyles.Top;
             lblCategoria.AutoSize = true;
             lblCategoria.Location = new Point(11, 15);
             lblCategoria.Name = "lblCategoria";
@@ -96,6 +102,7 @@
             // 
             // cbSalario
             // 
+            cbSalario.Anchor = AnchorStyles.Top;
             cbSalario.AutoSize = true;
             cbSalario.Location = new Point(397, 14);
             cbSalario.Name = "cbSalario";
