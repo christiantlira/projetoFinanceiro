@@ -24,7 +24,7 @@ namespace Financeiro.Forms
             ConfiguraCombo();
         }
 
-        private void ConfiguraLista()
+        private void ConfiguraLista(string filtroOp = "")
         {
             lista.Items.Clear();
             lista.Columns.Clear();
@@ -48,7 +48,11 @@ namespace Financeiro.Forms
             int nItens = 0;
             double valorTotal = 0;
 
-            string filtroOp = "WHERE GANHO = 'true'";
+            if(filtroOp.Length == 0)
+            {
+                filtroOp = "WHERE GANHO = 'true'";
+            }
+
             DataTable ganhos = CTR_DadosSql.getOperacao(filtroOp);
             if (ganhos.Rows.Count > 0)
             {
@@ -99,6 +103,21 @@ namespace Financeiro.Forms
                 cbCategorias.ValueMember = "PK";
 
                 cbCategorias.SelectedIndex = 0;
+
+
+                //COMBOBOX FILTRAGEM
+                DataTable categoriasFiltragem = categorias.Copy();
+                DataRow newRow = categoriasFiltragem.NewRow();
+                string coluna = "CATEGORIA_NOME";
+                newRow[coluna] = "-TODOS-";
+                categoriasFiltragem.Rows.Add(newRow);
+                categoriasFiltragem.DefaultView.Sort = coluna;
+
+                cbGCat.DataSource = categoriasFiltragem;
+                cbGCat.DisplayMember = "CATEGORIA_NOME";
+                cbGCat.ValueMember = "PK";
+
+                cbGCat.SelectedIndex = 0;
             }
         }
 
@@ -208,6 +227,38 @@ namespace Financeiro.Forms
                 MessageBox.Show("Gasto excluído com sucesso!", "Concluído", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnAtualizar_Click(sender, e);
             }
+        }
+
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            btnFiltrar.Enabled = false;
+            string filtro = "WHERE GANHO = 'true' ";
+
+
+            if(cbGCat.Text != "-TODOS-")
+            {
+                filtro += "AND CATEGORIA_FK = '" + cbGCat.SelectedValue.ToString() + "' ";
+            }
+
+
+            if(tbGDesc.Text.Length > 0)
+            {
+                filtro += "AND DESCRICAO LIKE '%" + tbGDesc.Text + "%' ";
+            }
+
+
+            if(tbGVal.Text.Length > 0)
+            {
+                filtro += "AND VALOR = '" + tbGVal.Text.Replace(",", ".") + "' ";
+            }
+
+            string dataInicio = DateTime.Parse(dtpGDe.Text).ToString("yyyy-MM-dd");
+            string dataFinal = DateTime.Parse(dtpGAte.Text).ToString("yyyy-MM-dd");
+
+            filtro += "AND DATA BETWEEN '" + dataInicio + "' AND '" + dataFinal + "'";
+
+            ConfiguraLista(filtro);
+            btnFiltrar.Enabled = true;
         }
     }
 }
