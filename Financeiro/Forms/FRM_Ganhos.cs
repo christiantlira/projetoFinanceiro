@@ -50,7 +50,8 @@ namespace Financeiro.Forms
 
             if (filtroOp.Length == 0)
             {
-                filtroOp = "WHERE GANHO = 'true'";
+                int mes = int.Parse(DateTime.Now.ToString("MM"));
+                filtroOp = "WHERE GANHO = 'true' AND MONTH(DATA) = '" + mes + "'";
             }
 
             DataTable ganhos = CTR_DadosSql.getOperacao(filtroOp);
