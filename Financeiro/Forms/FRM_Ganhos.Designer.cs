@@ -60,15 +60,16 @@
             lblCat = new Label();
             cbGCat = new ComboBox();
             tbGDesc = new TextBox();
+            groupBox2 = new GroupBox();
             cmsBotaoDireito.SuspendLayout();
             groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // btnCategorias
             // 
-            btnCategorias.Anchor = AnchorStyles.Top;
             btnCategorias.BackColor = Color.White;
-            btnCategorias.Location = new Point(23, 171);
+            btnCategorias.Location = new Point(12, 226);
             btnCategorias.Name = "btnCategorias";
             btnCategorias.Size = new Size(148, 23);
             btnCategorias.TabIndex = 47;
@@ -132,7 +133,7 @@
             // btnAdicionar
             // 
             btnAdicionar.Anchor = AnchorStyles.Top;
-            btnAdicionar.Location = new Point(808, 171);
+            btnAdicionar.Location = new Point(790, 51);
             btnAdicionar.Name = "btnAdicionar";
             btnAdicionar.Size = new Size(67, 23);
             btnAdicionar.TabIndex = 36;
@@ -143,9 +144,9 @@
             // lista
             // 
             lista.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            lista.Location = new Point(12, 200);
+            lista.Location = new Point(12, 255);
             lista.Name = "lista";
-            lista.Size = new Size(863, 311);
+            lista.Size = new Size(863, 256);
             lista.TabIndex = 41;
             lista.TabStop = false;
             lista.UseCompatibleStateImageBehavior = false;
@@ -155,7 +156,7 @@
             // 
             label2.Anchor = AnchorStyles.Top;
             label2.AutoSize = true;
-            label2.Location = new Point(635, 143);
+            label2.Location = new Point(609, 25);
             label2.Name = "label2";
             label2.Size = new Size(34, 15);
             label2.TabIndex = 40;
@@ -164,7 +165,7 @@
             // dtpData
             // 
             dtpData.Anchor = AnchorStyles.Top;
-            dtpData.Location = new Point(675, 140);
+            dtpData.Location = new Point(657, 22);
             dtpData.Name = "dtpData";
             dtpData.Size = new Size(200, 23);
             dtpData.TabIndex = 35;
@@ -172,7 +173,7 @@
             // txtBoxValor
             // 
             txtBoxValor.Anchor = AnchorStyles.Top;
-            txtBoxValor.Location = new Point(535, 140);
+            txtBoxValor.Location = new Point(523, 22);
             txtBoxValor.Name = "txtBoxValor";
             txtBoxValor.Size = new Size(80, 23);
             txtBoxValor.TabIndex = 34;
@@ -181,7 +182,7 @@
             // 
             label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
-            label1.Location = new Point(493, 143);
+            label1.Location = new Point(481, 25);
             label1.Name = "label1";
             label1.Size = new Size(36, 15);
             label1.TabIndex = 39;
@@ -191,7 +192,7 @@
             // 
             lblDescricao.Anchor = AnchorStyles.Top;
             lblDescricao.AutoSize = true;
-            lblDescricao.Location = new Point(236, 143);
+            lblDescricao.Location = new Point(224, 25);
             lblDescricao.Name = "lblDescricao";
             lblDescricao.Size = new Size(61, 15);
             lblDescricao.TabIndex = 38;
@@ -201,7 +202,7 @@
             // 
             lblCategorias.Anchor = AnchorStyles.Top;
             lblCategorias.AutoSize = true;
-            lblCategorias.Location = new Point(23, 143);
+            lblCategorias.Location = new Point(11, 25);
             lblCategorias.Name = "lblCategorias";
             lblCategorias.Size = new Size(66, 15);
             lblCategorias.TabIndex = 37;
@@ -211,7 +212,7 @@
             // 
             cbCategorias.Anchor = AnchorStyles.Top;
             cbCategorias.FormattingEnabled = true;
-            cbCategorias.Location = new Point(95, 140);
+            cbCategorias.Location = new Point(83, 22);
             cbCategorias.Name = "cbCategorias";
             cbCategorias.Size = new Size(121, 23);
             cbCategorias.TabIndex = 32;
@@ -219,7 +220,7 @@
             // txtBoxDescricao
             // 
             txtBoxDescricao.Anchor = AnchorStyles.Top;
-            txtBoxDescricao.Location = new Point(303, 140);
+            txtBoxDescricao.Location = new Point(291, 22);
             txtBoxDescricao.Name = "txtBoxDescricao";
             txtBoxDescricao.Size = new Size(170, 23);
             txtBoxDescricao.TabIndex = 33;
@@ -248,6 +249,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.Controls.Add(lblAte);
             groupBox1.Controls.Add(dtpGAte);
             groupBox1.Controls.Add(btnFiltrar);
@@ -369,12 +371,32 @@
             tbGDesc.Size = new Size(170, 23);
             tbGDesc.TabIndex = 42;
             // 
+            // groupBox2
+            // 
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox2.Controls.Add(cbCategorias);
+            groupBox2.Controls.Add(txtBoxDescricao);
+            groupBox2.Controls.Add(lblCategorias);
+            groupBox2.Controls.Add(lblDescricao);
+            groupBox2.Controls.Add(label1);
+            groupBox2.Controls.Add(txtBoxValor);
+            groupBox2.Controls.Add(dtpData);
+            groupBox2.Controls.Add(label2);
+            groupBox2.Controls.Add(btnAdicionar);
+            groupBox2.Location = new Point(12, 140);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(863, 80);
+            groupBox2.TabIndex = 49;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Adicionar Operação";
+            // 
             // FRM_Ganhos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(887, 544);
+            Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(btnCategorias);
             Controls.Add(lblItens);
@@ -382,22 +404,15 @@
             Controls.Add(lblValorTotal);
             Controls.Add(lblNumeroItens);
             Controls.Add(btnAtualizar);
-            Controls.Add(btnAdicionar);
             Controls.Add(lista);
-            Controls.Add(label2);
-            Controls.Add(dtpData);
-            Controls.Add(txtBoxValor);
-            Controls.Add(label1);
-            Controls.Add(lblDescricao);
-            Controls.Add(lblCategorias);
-            Controls.Add(cbCategorias);
-            Controls.Add(txtBoxDescricao);
             Name = "FRM_Ganhos";
             Text = "FRM_Ganhos";
             Load += FRM_Ganhos_Load;
             cmsBotaoDireito.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -435,5 +450,6 @@
         private Label lblCat;
         private ComboBox cbGCat;
         private TextBox tbGDesc;
+        private GroupBox groupBox2;
     }
 }

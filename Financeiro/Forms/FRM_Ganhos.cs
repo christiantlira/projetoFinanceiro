@@ -48,7 +48,7 @@ namespace Financeiro.Forms
             int nItens = 0;
             double valorTotal = 0;
 
-            if(filtroOp.Length == 0)
+            if (filtroOp.Length == 0)
             {
                 filtroOp = "WHERE GANHO = 'true'";
             }
@@ -235,19 +235,19 @@ namespace Financeiro.Forms
             string filtro = "WHERE GANHO = 'true' ";
 
 
-            if(cbGCat.Text != "-TODOS-")
+            if (cbGCat.Text != "-TODOS-")
             {
                 filtro += "AND CATEGORIA_FK = '" + cbGCat.SelectedValue.ToString() + "' ";
             }
 
 
-            if(tbGDesc.Text.Length > 0)
+            if (tbGDesc.Text.Length > 0)
             {
                 filtro += "AND DESCRICAO LIKE '%" + tbGDesc.Text + "%' ";
             }
 
 
-            if(tbGVal.Text.Length > 0)
+            if (tbGVal.Text.Length > 0)
             {
                 filtro += "AND VALOR = '" + tbGVal.Text.Replace(",", ".") + "' ";
             }
