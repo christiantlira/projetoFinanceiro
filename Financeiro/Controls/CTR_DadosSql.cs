@@ -78,7 +78,7 @@ namespace Financeiro.Controls
             conexao.Open();
 
             string comando = "SELECT * FROM OPERACAO " +
-                filtro + "" +
+                filtro + " " +
                 "ORDER BY DATA ASC";
 
             CTR_Conexao con = new CTR_Conexao();
@@ -108,6 +108,36 @@ namespace Financeiro.Controls
             conexao.Open();
 
             string comando = "DELETE FROM OPERACAO " + filtro;
+
+            CTR_Conexao con = new CTR_Conexao();
+            DataTable dt = con.executarFila(comando, conexao);
+
+            return dt;
+        }
+
+        public static DataTable getView(string filtro)
+        {
+            SqlConnection conexao = new SqlConnection(stringConexao);
+            conexao.Open();
+
+            string comando = "SELECT * FROM VW_OPERACOES " +
+                filtro +
+                "ORDER BY DATA ASC";
+            CTR_Conexao con = new CTR_Conexao();
+            DataTable dt = con.executarFila(comando, conexao);
+
+            return dt;
+        }
+
+        public static DataTable getSum(string filtro, string group)
+        {
+            SqlConnection conexao = new SqlConnection(stringConexao);
+            conexao.Open();
+
+            string comando = "SELECT SUM(VALOR) AS TOTAL " +
+                "FROM VW_OPERACOES " +
+                filtro +
+                " GROUP BY " + group;
 
             CTR_Conexao con = new CTR_Conexao();
             DataTable dt = con.executarFila(comando, conexao);

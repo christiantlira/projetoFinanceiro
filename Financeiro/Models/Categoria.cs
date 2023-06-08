@@ -12,11 +12,11 @@ namespace Financeiro.Models
         public string Name { get; set; }
         public string Cor { get; set; }
         public bool Essencial { get; set; }
-        public bool isGanho { get; set; }
+        public bool Ganho { get; set; }
 
         public string ToString()
         {
-            return Id.ToString() + " " + Name + " " + Cor + " " +  Essencial + " " + isGanho;
+            return Id.ToString() + " " + Name + " " + Cor + " " +  Essencial + " " + Ganho;
         }
 
         public override int GetHashCode()
@@ -28,7 +28,7 @@ namespace Financeiro.Models
                 hash = hash * 23 + (Name != null ? Name.GetHashCode() : 0);
                 hash = hash * 23 + (Cor != null ? Cor.GetHashCode() : 0);
                 hash = hash * 23 + Essencial.GetHashCode();
-                hash = hash * 23 + isGanho.GetHashCode();
+                hash = hash * 23 + Ganho.GetHashCode();
                 return hash;
             }
         }
@@ -43,7 +43,7 @@ namespace Financeiro.Models
                    Name == other.Name &&
                    Cor == other.Cor &&
                    Essencial == other.Essencial &&
-                   isGanho == other.isGanho;
+                   Ganho == other.Ganho;
         }
     }
 }

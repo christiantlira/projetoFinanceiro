@@ -13,6 +13,6 @@ namespace Financeiro.Models
         public string Descricao { get; set; }
         public double Valor { get; set; }
         public DateTime Data { get; set; }
-        public bool isGanho { get; set; }
+        public bool Ganho { get; set; }
     }
 }

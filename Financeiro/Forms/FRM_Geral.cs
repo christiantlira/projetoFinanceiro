@@ -25,7 +25,7 @@ namespace Financeiro.Forms
             ConfiguraLista();
         }
 
-        private void ConfiguraLista()
+        private void ConfiguraLista(string filtro = "")
         {
             lista.Items.Clear();
             lista.Columns.Clear();
@@ -42,139 +42,274 @@ namespace Financeiro.Forms
             lista.GridLines = true;
 
             lista.Columns.Add("Categoria", 200);
-            lista.Columns.Add("Descrição", 200);
+            lista.Columns.Add("Descrição", 400);
             lista.Columns.Add("Valor", 200);
             lista.Columns.Add("Data", 200);
 
-            DataTable operacoes = CTR_DadosSql.getOperacao();
-
-            double ganho = 0;
-            double gasto = 0;
-            double soma = 0;
-            int itens = 0;
 
             HashSet<Categoria> categorias = new HashSet<Categoria>();
-
-            if (operacoes.Rows.Count > 0)
+            DataTable categoriasDT = CTR_DadosSql.getCategorias();
+            foreach (DataRow row in categoriasDT.Rows)
             {
-                foreach (DataRow operacao in operacoes.Rows)
-                {
-                    string filtroCategoria = "WHERE PK = '" + operacao["CATEGORIA_FK"].ToString() + "'";
+                Categoria categoria = new Categoria();
+                categoria.Id = int.Parse(row["PK"].ToString());
+                categoria.Name = row["CATEGORIA_NOME"].ToString();
+                categoria.Essencial = bool.Parse(row["ESSENCIAL"].ToString());
+                categoria.Ganho = bool.Parse(row["GANHO"].ToString());
 
-                    DataTable catDT = CTR_DadosSql.getCategorias(filtroCategoria);
-                    Categoria categoria = new Categoria();
-                    categoria.Id = int.Parse(catDT.Rows[0]["PK"].ToString());
-                    categoria.Name = catDT.Rows[0]["CATEGORIA_NOME"].ToString();
-                    categoria.Essencial = catDT.Rows[0]["ESSENCIAL"].ToString() == "1";
-                    categoria.Cor = catDT.Rows[0]["COR"].ToString();
-                    categoria.isGanho = bool.Parse(catDT.Rows[0]["GANHO"].ToString());
-
-                    categorias.Add(categoria);
-
-                    Console.WriteLine(categorias);
-                    Console.WriteLine(categoria);
-
-                    Operacao opera = new Operacao();
-                    opera.Id = int.Parse(operacao["PK"].ToString());
-                    opera.Categoria = categoria;
-                    opera.Descricao = operacao["DESCRICAO"].ToString();
-                    opera.Valor = double.Parse(operacao["VALOR"].ToString());
-                    opera.Data = DateTime.Parse(operacao["DATA"].ToString());
-                    opera.isGanho = bool.Parse(operacao["GANHO"].ToString());
-
-                    ListViewItem item = new ListViewItem(opera.Categoria.Name);
-                    item.SubItems.Add(opera.Descricao);
-                    item.SubItems.Add("R$" + opera.Valor.ToString("0.00"));
-                    item.SubItems.Add(opera.Data.ToString("dd 'de' MMMM 'de' yyyy"));
-
-                    if (opera.isGanho)
-                    {
-                        item.BackColor = ColorTranslator.FromHtml("#D0CDC9");
-                        item.ForeColor = Color.Black;
-                        ganho += opera.Valor;
-                        soma += opera.Valor;
-                    }
-                    else if (!opera.isGanho)
-                    {
-                        item.BackColor = ColorTranslator.FromHtml("#4C5B6C");
-                        item.ForeColor = Color.White;
-                        gasto += opera.Valor;
-                        soma -= opera.Valor;
-                    }
-
-                    lista.Items.Add(item);
-                    itens++;
-                }
-                tbGanho.Text = "R$" + ganho.ToString("0.00");
-                tbGasto.Text = "R$" + gasto.ToString("0.00");
-                tbResta.Text = "R$" + soma.ToString("0.00");
-                tbItens.Text = itens.ToString();
+                categorias.Add(categoria);
             }
 
-            if (categorias.Count > 0)
+            
+            CalcularGastos(filtro == "");
+            CalcularGanhos(filtro == "");
+            double resta = double.Parse(tbGanho.Text.Replace("R$", "")) - double.Parse(tbGasto.Text.Replace("R$", ""));
+            tbResta.Text = "R$" + resta.ToString("0.00");
+            CalcularEssenciais(filtro == "");
+            CalcularNaoEssenciais(filtro == "");
+
+
+            int distanceGanhos = 0;
+            int distanceGastos = 0;
+            tpGastos.Controls.Clear();
+            tpGanhos.Controls.Clear();
+            foreach (Categoria cat in categorias)
             {
-                int distanceGastos = 0;
-                int distanceGanhos = 0;
-                foreach (Categoria categoria in categorias)
+                string dataInicio = DateTime.Parse(dtpDe.Text).ToString("yyyy-MM-dd");
+                string dataFinal = DateTime.Parse(dtpAte.Text).ToString("yyyy-MM-dd");
+
+                string filtroSum = "";
+                if (filtro == "")
                 {
-                    string filtroCat = "WHERE CATEGORIA_FK = '" + categoria.Id + "'";
-                    DataTable operacaos = CTR_DadosSql.getOperacao(filtroCat);
-                    double valorOperacoes = 0;
-                    foreach (DataRow operacao in operacaos.Rows)
+                    int mes = int.Parse(DateTime.Now.ToString("MM"));
+                    filtroSum = "WHERE GANHO = '" + cat.Ganho +
+                        "' AND CATEGORIA_FK = '" + cat.Id +
+                        "' AND MONTH(DATA) = '" + mes + "' ";
+                }
+                else
+                {
+                    filtroSum = "WHERE GANHO = '" + cat.Ganho +
+                        "' AND CATEGORIA_FK = '" + cat.Id +
+                        "' AND DATA BETWEEN '" + dataInicio +
+                        "' AND '" + dataFinal + "' ";
+                }
+
+                DataTable sum = CTR_DadosSql.getSum(filtroSum, "GANHO");
+
+                double total = 0;
+                if (sum.Rows.Count > 0)
+                {
+                    total = double.Parse(sum.Rows[0]["TOTAL"].ToString());
+                }
+
+                // Criar instância da Label
+                Label label = new Label();
+
+                // Configurar as propriedades da Label
+                label.Size = new Size(200, 20);
+
+                label.Name = "lbl" + cat.Name;
+                label.Text = cat.Name + ":";
+                label.AutoSize = true;
+
+                // Criar instância da TextBox
+                System.Windows.Forms.TextBox textBox = new System.Windows.Forms.TextBox();
+
+                // Configurar as propriedades da TextBox
+                textBox.Size = new Size(100, 23);
+
+                textBox.Name = "tb" + cat.Name;
+                textBox.Multiline = true;
+                textBox.BorderStyle = BorderStyle.FixedSingle;
+                textBox.Enabled = false;
+                textBox.Text = "R$" + total.ToString("0.00");
+
+                // Adicionar a Label e a TextBox à TabPage
+                if (!cat.Ganho)
+                {
+                    label.Location = new Point(10, 10 + distanceGastos);
+                    textBox.Location = new Point(10, 28 + distanceGastos);
+
+                    tpGastos.Controls.Add(label);
+                    tpGastos.Controls.Add(textBox);
+
+                    distanceGastos += 56;
+                }
+                else
+                {
+                    label.Location = new Point(10, 10 + distanceGanhos);
+                    textBox.Location = new Point(10, 28 + distanceGanhos);
+
+                    tpGanhos.Controls.Add(label);
+                    tpGanhos.Controls.Add(textBox);
+
+                    distanceGanhos += 56;
+                }
+            }
+
+            if (filtro == "")
+            {
+                int mes = int.Parse(DateTime.Now.ToString("MM"));
+                filtro = "WHERE MONTH(DATA) = '" + mes + "'";
+            }
+
+            DataTable operacoes = CTR_DadosSql.getView(filtro);
+            int itens = 0;
+            if (operacoes.Rows.Count > 0)
+            {
+                foreach (DataRow row in operacoes.Rows)
+                {
+                    itens++;
+                    //REGRISTRO DE CATEGORIA
+                    Categoria categoria = new Categoria();
+                    categoria.Id = int.Parse(row["CATEGORIA_FK"].ToString());
+                    categoria.Name = row["CATEGORIA_NOME"].ToString();
+                    categoria.Ganho = bool.Parse(row["GANHO"].ToString());
+                    categoria.Essencial = bool.Parse(row["ESSENCIAL"].ToString());
+
+                    //REGISTRO DE OPERAÇÃO
+                    Operacao operacao = new Operacao();
+                    operacao.Categoria = categoria;
+                    operacao.Descricao = row["DESCRICAO"].ToString().ToUpper();
+                    operacao.Valor = double.Parse(row["VALOR"].ToString());
+                    operacao.Data = DateTime.Parse(row["DATA"].ToString());
+                    operacao.Ganho = bool.Parse(row["GANHO"].ToString());
+
+                    //CRIAÇÃO DO ITEM DA LISTA
+                    ListViewItem item = new ListViewItem(categoria.Name);
+                    item.SubItems.Add(operacao.Descricao);
+                    item.SubItems.Add("R$" + operacao.Valor.ToString("0.00"));
+                    item.SubItems.Add(operacao.Data.ToString("dd/MM/yyyy"));
+
+                    if (operacao.Ganho)
                     {
-                        valorOperacoes += double.Parse(operacao["VALOR"].ToString());
-                    }
-
-                    // Criar instância da Label
-                    Label label = new Label();
-
-                    // Configurar as propriedades da Label
-                    label.Size = new Size(200, 20);
-
-                    label.Name = "lbl" + categoria.Name;
-                    label.Text = categoria.Name + ":";
-                    label.AutoSize = true;
-
-                    // Criar instância da TextBox
-                    System.Windows.Forms.TextBox textBox = new System.Windows.Forms.TextBox();
-
-                    // Configurar as propriedades da TextBox
-                    textBox.Size = new Size(100, 23);
-
-                    textBox.Name = "tb" + categoria.Name;
-                    textBox.Multiline = true;
-                    textBox.BorderStyle = BorderStyle.FixedSingle;
-                    textBox.Enabled = false;
-                    textBox.Text = "R$" + valorOperacoes.ToString("0.00");
-
-                    // Adicionar a Label e a TextBox à TabPage
-                    if (!categoria.isGanho)
-                    {
-                        label.Location = new Point(10, 10 + distanceGastos);
-                        textBox.Location = new Point(10, 28 + distanceGastos);
-
-                        tpGastos.Controls.Add(label);
-                        tpGastos.Controls.Add(textBox);
-
-                        distanceGastos += 56;
+                        item.BackColor = Color.YellowGreen;
                     }
                     else
                     {
-                        label.Location = new Point(10, 10 + distanceGanhos);
-                        textBox.Location = new Point(10, 28 + distanceGanhos);
-
-                        tpGanhos.Controls.Add(label);
-                        tpGanhos.Controls.Add(textBox);
-
-                        distanceGanhos += 56;
+                        item.BackColor = Color.Tomato;
                     }
+
+                    //ADICIONANDO ITEM NA LISTA
+                    lista.Items.Add(item);
                 }
             }
+            tbItens.Text = itens.ToString();
+        }
+
+        private void CalcularGastos(bool hasFiltro)
+        {
+            int mes = int.Parse(DateTime.Now.ToString("MM"));
+            string dataInicio = DateTime.Parse(dtpDe.Text).ToString("yyyy-MM-dd");
+            string dataFinal = DateTime.Parse(dtpAte.Text).ToString("yyyy-MM-dd");
+
+            string filtroSum = "";
+            if (hasFiltro)
+            {
+                filtroSum = "WHERE GANHO = 'false' AND MONTH(DATA) = '" + mes + "' ";
+            }
+            else
+            {
+                filtroSum = "WHERE GANHO = 'false' " +
+                    "AND DATA BETWEEN '" + dataInicio +
+                    "' AND '" + dataFinal + "' ";
+            }
+            DataTable sum = CTR_DadosSql.getSum(filtroSum, "GANHO");
+
+            double total = 0;
+            if (sum.Rows.Count > 0)
+            {
+                total = double.Parse(sum.Rows[0]["TOTAL"].ToString());
+            }
+            tbGasto.Text = "R$" + total.ToString("0.00");
+        }
+
+        private void CalcularGanhos(bool hasFiltro)
+        {
+            int mes = int.Parse(DateTime.Now.ToString("MM"));
+            string dataInicio = DateTime.Parse(dtpDe.Text).ToString("yyyy-MM-dd");
+            string dataFinal = DateTime.Parse(dtpAte.Text).ToString("yyyy-MM-dd");
+
+            string filtroSum = "";
+            if (hasFiltro)
+            {
+                filtroSum = "WHERE GANHO = 'true' AND MONTH(DATA) = '" + mes + "' ";
+            }
+            else
+            {
+                filtroSum = "WHERE GANHO = 'true' " +
+                    "AND DATA BETWEEN '" + dataInicio +
+                    "' AND '" + dataFinal + "' ";
+            }
+            DataTable sum = CTR_DadosSql.getSum(filtroSum, "GANHO");
+
+            double total = 0;
+            if (sum.Rows.Count > 0)
+            {
+                total = double.Parse(sum.Rows[0]["TOTAL"].ToString());
+            }
+            tbGanho.Text = "R$" + total.ToString("0.00");
+        }
+
+        private void CalcularEssenciais(bool hasFiltro)
+        {
+            int mes = int.Parse(DateTime.Now.ToString("MM"));
+            string dataInicio = DateTime.Parse(dtpDe.Text).ToString("yyyy-MM-dd");
+            string dataFinal = DateTime.Parse(dtpAte.Text).ToString("yyyy-MM-dd");
+
+            string filtroSum = "";
+            if (hasFiltro)
+            {
+                filtroSum = "WHERE ESSENCIAL = 'true'  AND GANHO = 'false'" +
+                    "AND MONTH(DATA) = '" + mes + "' ";
+            }
+            else
+            {
+                filtroSum = "WHERE ESSENCIAL = 'true' AND GANHO = 'false'" +
+                    "AND DATA BETWEEN '" + dataInicio +
+                    "' AND '" + dataFinal + "' ";
+            }
+            DataTable sum = CTR_DadosSql.getSum(filtroSum, "ESSENCIAL");
+
+            double total = 0;
+            if (sum.Rows.Count > 0)
+            {
+                total = double.Parse(sum.Rows[0]["TOTAL"].ToString());
+            }
+            tbEssenciais.Text = "R$" + total.ToString("0.00");
+        }
+        private void CalcularNaoEssenciais(bool hasFiltro)
+        {
+            int mes = int.Parse(DateTime.Now.ToString("MM"));
+            string dataInicio = DateTime.Parse(dtpDe.Text).ToString("yyyy-MM-dd");
+            string dataFinal = DateTime.Parse(dtpAte.Text).ToString("yyyy-MM-dd");
+
+            string filtroSum = "";
+            if (hasFiltro)
+            {
+                filtroSum = "WHERE ESSENCIAL = 'false'  AND GANHO = 'false'" +
+                    "AND MONTH(DATA) = '" + mes + "' ";
+            }
+            else
+            {
+                filtroSum = "WHERE ESSENCIAL = 'false' AND GANHO = 'false'" +
+                    "AND DATA BETWEEN '" + dataInicio +
+                    "' AND '" + dataFinal + "' ";
+            }
+            DataTable sum = CTR_DadosSql.getSum(filtroSum, "ESSENCIAL");
+
+            double total = 0;
+            if (sum.Rows.Count > 0)
+            {
+                total = double.Parse(sum.Rows[0]["TOTAL"].ToString());
+            }
+            tbNaoEssenciais.Text = "R$" + total.ToString("0.00");
         }
 
         private void btnAtualizar_Click(object sender, EventArgs e)
         {
-            ConfiguraLista();
+            string filtro = "WHERE DATA BETWEEN '" + DateTime.Parse(dtpDe.Text).ToString("yyyy-MM-dd") + "' AND '" + DateTime.Parse(dtpAte.Text).ToString("yyyy-MM-dd") + "' ";
+            ConfiguraLista(filtro);
         }
     }
 }
